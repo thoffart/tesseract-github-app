@@ -1,44 +1,86 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Tesseract Github App
 
-## Available Scripts
+Site para pesquisa dos usuários do grupo tesseract utilizando react com typescript e redux-observable.
 
-In the project directory, you can run:
+## Instalação
 
-### `npm start`
+Clone o repositório e rode 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+npm i
+npm start
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Padrão de commits
 
-### `npm test`
+Para o padrão de commits foi utilizado o [Karma](http://karma-runner.github.io/4.0/dev/git-commit-msg.html)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Arquitetura
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Para este projeto foi utilizado a arquitetura do react com [redux-observable](https://redux-observable.js.org/). 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+src
+│       
+│
+└───components
+│      
+│
+└───models   
+│  
+│   
+│
+└───pages  
+│     
+│   
+│
+└───store
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Onde cada pasta representa:
 
-### `npm run eject`
+* components: Componentes que podem ser reutilizados.
+* models: Interfaces para a tipagem.
+* pages: As páginas da aplicação
+* store: A store da aplicação, aonde conterá todo seu estado.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Para a store, cada nova entidade seguirá o seguinte padrão:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+store
+│   index.ts    
+│
+└───actions
+│      index.ts
+│      entity-actions.ts
+│
+└───constants
+│      index.ts
+│      entity-constants.ts
+│   
+│
+└───epics
+│      index.ts
+│      entity-epics.ts
+│   
+│
+└───reducers
+│      index.ts
+│      entity-reducers.ts
+│   
+│
+└───selectors
+       entity-selectors.ts
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Onde cada arquivo representa:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+* entity-actions: As actions para serem disparadas e haver mudança de state da entity.
+* entity-constants: As constantes para serem usadas nas actions.
+* entity-epics: As operações necessárias antes de que ocorrá a mudança de estado, como por exemplo uma requisição para uma api.
+* entity-reducers: Onde ficará o state da entidade e acontecerá sua mudança de estado.
+* entity-selectors: Funções para acesso ao state com memoization.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
